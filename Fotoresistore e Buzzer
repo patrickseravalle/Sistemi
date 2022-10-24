@@ -1,0 +1,35 @@
+#define LDR A0
+#define led_green 2
+#define led_red 3
+#define piezo 7
+
+void setup()
+{
+  Serial.begin (9600);
+  pinMode(LDR, INPUT);
+  pinMode (led_green, OUTPUT);
+  pinMode (led_red, OUTPUT);
+  pinMode (piezo, OUTPUT);
+}
+
+void loop()
+{
+  int value = analogRead (LDR);
+  Serial.println (value);
+  delay (10);
+  
+  if (value < 250 )
+  {
+    digitalWrite (led_green, HIGH);
+    digitalWrite (led_red, LOW);
+    noTone (piezo);
+    delay (50);
+  }
+  else
+  {
+    digitalWrite (led_green, LOW);
+    digitalWrite (led_red, HIGH); 
+    tone (piezo, 1000);
+    delay (50);
+  }
+}
